@@ -2,409 +2,929 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>I'm Really Sorry, My Love ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>A Special Note For My Favorite Human 🐱🧸❤️</title>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Canvas Confetti for the forgiveness celebration -->
+  
+  <!-- Canvas Confetti for the ultimate celebration -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Google Fonts: Playfair Display for romance, Caveat for hand-written notes, Inter for body -->
+
+  <!-- Google Fonts: Quicksand for bubbly cute typography, Gaegu & Caveat for sweet handwriting -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Gaegu:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
+    :root {
+      --primary-pink: #ff85a1;
+      --soft-blush: #fce7f3;
+      --warm-peach: #fff1f2;
+      --cute-yellow: #fef08a;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at 10% 20%, #fff1f2 0%, #fff7ed 50%, #fdf2f8 100%);
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #fff1f2 0%, #fff7ed 35%, #fdf2f8 70%, #fef9c3 100%);
+      min-height: 100vh;
       overflow-x: hidden;
+      touch-action: manipulation;
     }
-    .font-serif-romance {
-      font-family: 'Playfair Display', serif;
-    }
-    .font-handwriting {
-      font-family: 'Caveat', cursive;
+
+    .font-cute {
+      font-family: 'Gaegu', cursive;
     }
     
-    /* Subtle floating background petals and hearts */
-    .floating-bubble {
+    .font-hand {
+      font-family: 'Caveat', cursive;
+    }
+
+    /* Soft candy glass morphism */
+    .candy-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 2px solid rgba(255, 228, 230, 0.9);
+      box-shadow: 0 12px 35px -8px rgba(244, 114, 182, 0.18), 0 4px 12px rgba(251, 113, 133, 0.08);
+    }
+
+    /* Floating ambient items */
+    .floating-sticker {
       position: absolute;
       pointer-events: none;
-      border-radius: 50%;
-      animation: floatUp 14s infinite linear;
-      opacity: 0.65;
+      animation: floatAmbient 10s infinite ease-in-out;
+      opacity: 0.6;
+      user-select: none;
     }
 
-    @keyframes floatUp {
+    @keyframes floatAmbient {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+      }
+      50% {
+        transform: translateY(-22px) rotate(6deg) scale(1.08);
+      }
+    }
+
+    /* Bouncy character animations */
+    @keyframes earWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-8deg); }
+      75% { transform: rotate(8deg); }
+    }
+    .wiggle-ears {
+      animation: earWiggle 3.5s infinite ease-in-out;
+      transform-origin: center bottom;
+    }
+
+    @keyframes tailWag {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(18deg); }
+    }
+    .wag-tail {
+      animation: tailWag 1.8s infinite ease-in-out;
+      transform-origin: bottom left;
+    }
+
+    @keyframes softBreathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .breathing-character {
+      animation: softBreathe 3s infinite ease-in-out;
+      transform-origin: center bottom;
+    }
+
+    /* Heart burst on clicking characters */
+    .spawned-heart {
+      position: absolute;
+      pointer-events: none;
+      font-size: 24px;
+      animation: flyUp 1.2s forwards cubic-bezier(0.2, 0.8, 0.3, 1);
+      z-index: 50;
+    }
+    @keyframes flyUp {
       0% {
-        transform: translateY(110vh) scale(0.7) rotate(0deg);
-        opacity: 0;
-      }
-      20% {
-        opacity: 0.8;
-      }
-      80% {
-        opacity: 0.6;
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.6) translateY(0);
       }
       100% {
-        transform: translateY(-15vh) scale(1.1) rotate(45deg);
         opacity: 0;
+        transform: translate(-50%, -50%) scale(1.4) translateY(-90px) rotate(15deg);
       }
-    }
-
-    /* Soft pulse for hero heart and highlights */
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-    .animate-heartbeat {
-      animation: heartbeat 2.2s infinite ease-in-out;
     }
 
     /* Flip Card Styles */
-    .flip-card {
+    .flip-box {
       perspective: 1000px;
     }
-    .flip-card-inner {
-      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    .flip-box-inner {
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
       transform-style: preserve-3d;
     }
-    .flip-card.flipped .flip-card-inner {
+    .flip-box.is-flipped .flip-box-inner {
       transform: rotateY(180deg);
     }
-    .flip-card-front, .flip-card-back {
+    .flip-front, .flip-back {
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
-    .flip-card-back {
+    .flip-back {
       transform: rotateY(180deg);
     }
 
-    /* Glassmorphic card styling */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(254, 205, 211, 0.6);
+    /* Coupon Stamped Badge */
+    .stamp-badge {
+      transform: rotate(-12deg);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #fbcfe8;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f472b6;
     }
   </style>
 </head>
 
-<body class="min-h-screen text-slate-800 relative select-none antialiased flex flex-col justify-between">
-  <!-- Interactive Floating Background Container -->
-  <div id="heart-bg-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+<body class="flex flex-col justify-between items-center relative selection:bg-rose-200">
 
-  <!-- Main Content Wrapper -->
-  <main class="relative z-10 max-w-2xl mx-auto px-4 py-10 sm:py-16 w-full flex flex-col items-center">
-    
-    <!-- Hero Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-100/90 text-rose-600 text-xs sm:text-sm font-medium border border-rose-200 shadow-sm mb-6 animate-heartbeat">
-      <span>A Heartfelt Note Just For You</span>
-      <span class="text-rose-500">💌</span>
+  <!-- Ambient floating decorative stickers -->
+  <div id="ambient-stickers" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+  <!-- Header & Navigation Bar -->
+  <header class="w-full max-w-xl mx-auto pt-6 px-4 z-20">
+    <div class="text-center mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100/90 border border-rose-200 text-rose-600 text-xs font-bold tracking-wider uppercase mb-1 shadow-sm">
+        <span>🐾 For My Sweetest Princess 🐾</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-rose-950 flex items-center justify-center gap-2">
+        <span>I'm So Sorry, Babe</span>
+        <span class="inline-block animate-bounce">🥺</span>
+      </h1>
+      <p class="text-xs sm:text-sm text-rose-500 font-medium mt-1">Tap through the tabs below made especially for you!</p>
     </div>
 
-    <header class="text-center mb-8">
-      <h1 class="text-3xl sm:text-5xl font-serif-romance font-bold text-rose-950 leading-tight mb-3">
-        I'm Really Sorry, My Love
-      </h1>
-      <p class="text-base sm:text-lg text-rose-700/80 font-medium max-w-md mx-auto">
-        From the bottom of my heart, I never wanted to upset you or hurt your feelings.
-      </p>
-    </header>
+    <!-- Navigation Pills -->
+    <nav class="flex items-center justify-between gap-1 p-1.5 candy-card rounded-2xl shadow-md overflow-x-auto text-xs sm:text-sm font-bold text-slate-600 no-scrollbar">
+      <button onclick="switchTab('letter')" id="tab-btn-letter" class="tab-btn active-tab flex-1 py-2 px-2.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap bg-rose-400 text-white shadow-sm">
+        <span>💌</span>
+        <span>Letter</span>
+      </button>
+      <button onclick="switchTab('corner')" id="tab-btn-corner" class="tab-btn flex-1 py-2 px-2.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap hover:text-rose-500">
+        <span>🐱🧸</span>
+        <span>Friends</span>
+      </button>
+      <button onclick="switchTab('coupons')" id="tab-btn-coupons" class="tab-btn flex-1 py-2 px-2.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap hover:text-rose-500">
+        <span>🎟️</span>
+        <span>Coupons</span>
+      </button>
+      <button onclick="switchTab('reasons')" id="tab-btn-reasons" class="tab-btn flex-1 py-2 px-2.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap hover:text-rose-500">
+        <span>🌸</span>
+        <span>Why You</span>
+      </button>
+      <button onclick="switchTab('forgive')" id="tab-btn-forgive" class="tab-btn flex-1 py-2 px-2.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap hover:text-rose-500">
+        <span>💖</span>
+        <span>Forgive?</span>
+      </button>
+    </nav>
+  </header>
 
-    <section class="glass-card rounded-3xl p-6 sm:p-8 shadow-xl shadow-rose-100/60 w-full mb-8 relative border-t-2 border-rose-200">
-      <div class="absolute -top-4 right-8 bg-rose-500 text-white rounded-full p-2.5 shadow-md">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-        </svg>
-      </div>
+  <main class="w-full max-w-xl mx-auto px-4 py-5 z-10 flex-1">
+    
+    <!-- ==============================================
+         TAB 1: APOLOGY LETTER
+         ============================================== -->
+    <section id="view-letter" class="tab-view block animate-fade-in">
+      <div class="candy-card rounded-3xl p-6 sm:p-7 relative border-t-4 border-rose-300">
+        
+        <!-- Animated Teddy & Cat Header SVG -->
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <!-- Cute Teddy Face -->
+          <svg class="w-14 h-14 wiggle-ears filter drop-shadow-sm" viewBox="0 0 100 100" fill="none">
+            <circle cx="28" cy="28" r="14" fill="#c68a4c" />
+            <circle cx="28" cy="28" r="8" fill="#e9b872" />
+            <circle cx="72" cy="28" r="14" fill="#c68a4c" />
+            <circle cx="72" cy="28" r="8" fill="#e9b872" />
+            <circle cx="50" cy="55" r="34" fill="#c68a4c" />
+            <ellipse cx="50" cy="63" rx="16" ry="12" fill="#fde2b4" />
+            <circle cx="40" cy="50" r="4" fill="#3e2723" />
+            <circle cx="60" cy="50" r="4" fill="#3e2723" />
+            <ellipse cx="50" cy="59" rx="5" ry="3.5" fill="#3e2723" />
+            <path d="M50 62.5 Q46 68 44 65 M50 62.5 Q54 68 56 65" stroke="#3e2723" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="34" cy="58" r="5" fill="#f472b6" opacity="0.4" />
+            <circle cx="66" cy="58" r="5" fill="#f472b6" opacity="0.4" />
+          </svg>
 
-      <h2 class="text-xl sm:text-2xl font-serif-romance font-bold text-slate-800 mb-4 flex items-center gap-2">
-        <span>To My Most Cherished Person</span>
-        <span class="text-rose-400">✨</span>
-      </h2>
-      
-      <div class="space-y-3.5 text-slate-600 text-sm sm:text-base leading-relaxed">
-        <p>
-          I've spent time reflecting on my mistake, and I truly regret causing you any distress. Seeing you upset because of me is painful, and I own up completely without excuses.
-        </p>
-        <p>
-          You deserve only patience, tenderness, and unwavering support. I promise to listen more carefully, communicate better, and consistently show you how treasured you are.
-        </p>
-        <p class="font-medium text-rose-800">
-          Our bond and your happiness mean everything to me.
-        </p>
-      </div>
+          <!-- Little Heart Bridge -->
+          <div class="text-2xl animate-pulse">❤️</div>
 
-      <div class="mt-6 pt-4 border-t border-rose-100 flex items-center justify-between">
-        <div class="text-xs text-rose-500 uppercase tracking-widest font-semibold">Forever Yours</div>
-        <div class="font-handwriting text-2xl text-rose-600 font-bold">With all my love 💕</div>
-      </div>
-    </section>
-
-    <section class="w-full mb-8">
-      <div class="text-center mb-5">
-        <span class="text-xs uppercase font-bold tracking-wider text-rose-400">Tap each card to reveal</span>
-        <h3 class="text-xl sm:text-2xl font-serif-romance font-bold text-slate-800 mt-1">
-          Reasons I Cherish You So Much
-        </h3>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 w-full">
-        <!-- Card 1 -->
-        <div class="flip-card h-36 cursor-pointer" onclick="toggleFlip(this)">
-          <div class="flip-card-inner relative w-full h-full text-center">
-            <div class="flip-card-front glass-card rounded-2xl p-4 flex flex-col items-center justify-center absolute inset-0 shadow-sm border border-rose-200/80 hover:border-rose-300 transition-colors">
-              <span class="text-2xl mb-1">🌸</span>
-              <h4 class="font-semibold text-rose-900 text-sm">Your Kindness</h4>
-              <p class="text-xs text-rose-500 mt-1">Tap to read</p>
-            </div>
-            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-pink-500 text-white rounded-2xl p-4 flex items-center justify-center absolute inset-0 shadow-md text-xs sm:text-sm font-medium leading-snug">
-              "The gentle and understanding way you treat everyone makes my world soft, bright, and safe."
-            </div>
-          </div>
+          <!-- Cute Kitty Face -->
+          <svg class="w-14 h-14 wiggle-ears filter drop-shadow-sm" viewBox="0 0 100 100" fill="none">
+            <polygon points="20,25 36,5 42,32" fill="#fed7aa" />
+            <polygon points="25,24 35,11 39,29" fill="#fda4af" />
+            <polygon points="80,25 64,5 58,32" fill="#fed7aa" />
+            <polygon points="75,24 65,11 61,29" fill="#fda4af" />
+            <circle cx="50" cy="55" r="32" fill="#fed7aa" />
+            <!-- Kitty Eyes -->
+            <ellipse cx="38" cy="52" rx="4" ry="5.5" fill="#475569" />
+            <ellipse cx="62" cy="52" rx="4" ry="5.5" fill="#475569" />
+            <circle cx="39" cy="50" r="1.5" fill="#ffffff" />
+            <circle cx="63" cy="50" r="1.5" fill="#ffffff" />
+            <!-- Kitty Nose & Mouth -->
+            <polygon points="50,59 47,56 53,56" fill="#fb7185" />
+            <path d="M50 59 Q46 64 42 61 M50 59 Q54 64 58 61" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+            <!-- Whiskers -->
+            <line x1="20" y1="56" x2="33" y2="58" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="18" y1="64" x2="33" y2="63" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="80" y1="56" x2="67" y2="58" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="82" y1="64" x2="67" y2="63" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
+            <!-- Cheeks -->
+            <circle cx="32" cy="62" r="5" fill="#f43f5e" opacity="0.3" />
+            <circle cx="68" cy="62" r="5" fill="#f43f5e" opacity="0.3" />
+          </svg>
         </div>
 
-        <!-- Card 2 -->
-        <div class="flip-card h-36 cursor-pointer" onclick="toggleFlip(this)">
-          <div class="flip-card-inner relative w-full h-full text-center">
-            <div class="flip-card-front glass-card rounded-2xl p-4 flex flex-col items-center justify-center absolute inset-0 shadow-sm border border-rose-200/80 hover:border-rose-300 transition-colors">
-              <span class="text-2xl mb-1">☀️</span>
-              <h4 class="font-semibold text-rose-900 text-sm">Your Bright Smile</h4>
-              <p class="text-xs text-rose-500 mt-1">Tap to read</p>
-            </div>
-            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-pink-500 text-white rounded-2xl p-4 flex items-center justify-center absolute inset-0 shadow-md text-xs sm:text-sm font-medium leading-snug">
-              "Your smile lights up even the greyest days. Hearing your laughter is my favorite sound in the world."
-            </div>
-          </div>
+        <h2 class="text-xl sm:text-2xl font-bold text-center text-slate-800 mb-4 font-cute">
+          My Sweetest Girl... 🥺💌
+        </h2>
+
+        <div class="space-y-3.5 text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p>
+            I made a mistake, and it broke my heart knowing that I made you feel hurt, upset, or unheard. Your smile is my favorite thing in the universe, and being the reason it faded hurts me deeply.
+          </p>
+          <p>
+            I don't want to make silly excuses. I just want to tell you how truly sorry I am. You deserve all the gentleness, honesty, warmth, and care in the world.
+          </p>
+          <p class="bg-rose-50/80 p-3 rounded-2xl border border-rose-200/80 text-rose-800 font-medium text-xs sm:text-sm">
+            ✨ <strong>My Little Promise:</strong> I'm working every day to communicate better, love you harder, and ensure you always feel safe and cherished with me.
+          </p>
         </div>
 
-        <!-- Card 3 -->
-        <div class="flip-card h-36 cursor-pointer" onclick="toggleFlip(this)">
-          <div class="flip-card-inner relative w-full h-full text-center">
-            <div class="flip-card-front glass-card rounded-2xl p-4 flex flex-col items-center justify-center absolute inset-0 shadow-sm border border-rose-200/80 hover:border-rose-300 transition-colors">
-              <span class="text-2xl mb-1">🧸</span>
-              <h4 class="font-semibold text-rose-900 text-sm">Our Memories</h4>
-              <p class="text-xs text-rose-500 mt-1">Tap to read</p>
-            </div>
-            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-pink-500 text-white rounded-2xl p-4 flex items-center justify-center absolute inset-0 shadow-md text-xs sm:text-sm font-medium leading-snug">
-              "Every sweet, silly moment we share is irreplaceable. I promise to protect and honor what we have."
-            </div>
+        <!-- Interactive Cute Mood Selector -->
+        <div class="mt-6 pt-4 border-t border-rose-100 text-center">
+          <p class="text-xs text-rose-500 font-semibold mb-2">How is your heart feeling right now?</p>
+          <div class="flex items-center justify-center gap-2">
+            <button onclick="setMood('pout')" class="px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-sm transition border border-rose-200 active:scale-95">Still Pouting 😾</button>
+            <button onclick="setMood('soft')" class="px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-sm transition border border-rose-200 active:scale-95">A Little Soft 🥺</button>
+            <button onclick="setMood('forgive')" class="px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-sm transition border border-rose-200 active:scale-95">Warming Up 🥰</button>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="glass-card rounded-3xl p-6 sm:p-7 shadow-lg shadow-rose-100/50 w-full mb-8 border border-rose-200/70">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-xl">🎟️</span>
-        <h3 class="text-lg font-serif-romance font-bold text-slate-800">My Peace Offerings</h3>
-      </div>
-      <p class="text-xs sm:text-sm text-slate-500 mb-4">No expiration dates — redeemable anytime whenever you want!</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <!-- Coupon 1: Day Movie Date -->
-        <div class="border border-dashed border-rose-300 bg-rose-50/70 rounded-xl p-3 flex items-center gap-3 hover:bg-rose-50 transition">
-          <div class="text-2xl bg-white p-2 rounded-lg shadow-sm">☀️🍿</div>
-          <div>
-            <div class="text-xs uppercase font-bold text-rose-600">Coupon #1</div>
-            <div class="text-sm font-semibold text-slate-800">Day Movie Date</div>
-            <div class="text-[11px] text-slate-500">Sunny matinee show, your film choice & giant popcorn on me!</div>
-          </div>
+          <p id="mood-response" class="text-xs text-rose-700 font-hand text-lg mt-2 h-6"></p>
         </div>
 
-        <!-- Coupon 2: Her Favorite Meal -->
-        <div class="border border-dashed border-rose-300 bg-rose-50/70 rounded-xl p-3 flex items-center gap-3 hover:bg-rose-50 transition">
-          <div class="text-2xl bg-white p-2 rounded-lg shadow-sm">🍕</div>
-          <div>
-            <div class="text-xs uppercase font-bold text-rose-600">Coupon #2</div>
-            <div class="text-sm font-semibold text-slate-800">Your Favorite Meal or Treat</div>
-            <div class="text-[11px] text-slate-500">Dine-out or cozy delivery, whatever craving you have!</div>
-          </div>
-        </div>
-
-        <!-- Coupon 3: Unlimited Hugs -->
-        <div class="border border-dashed border-rose-300 bg-rose-50/70 rounded-xl p-3 flex items-center gap-3 hover:bg-rose-50 transition">
-          <div class="text-2xl bg-white p-2 rounded-lg shadow-sm">🤗</div>
-          <div>
-            <div class="text-xs uppercase font-bold text-rose-600">Coupon #3</div>
-            <div class="text-sm font-semibold text-slate-800">Unlimited Warm Hugs</div>
-            <div class="text-[11px] text-slate-500">Redeemable whenever you need comforting warmth.</div>
-          </div>
-        </div>
-
-        <!-- Coupon 4: 100% Attentive Listening -->
-        <div class="border border-dashed border-rose-300 bg-rose-50/70 rounded-xl p-3 flex items-center gap-3 hover:bg-rose-50 transition">
-          <div class="text-2xl bg-white p-2 rounded-lg shadow-sm">🎧</div>
-          <div>
-            <div class="text-xs uppercase font-bold text-rose-600">Coupon #4</div>
-            <div class="text-sm font-semibold text-slate-800">Zero-Distraction Listening</div>
-            <div class="text-[11px] text-slate-500">Phone away, all ears, venting and cuddles guaranteed.</div>
-          </div>
+        <!-- Footer Sign-off -->
+        <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+          <span>Forever yours</span>
+          <span class="font-hand text-2xl text-rose-600 font-bold">With endless cuddles 💕</span>
         </div>
       </div>
     </section>
 
-    <section id="question-box" class="glass-card rounded-3xl p-6 sm:p-8 shadow-xl shadow-rose-200/50 w-full text-center border-2 border-rose-200 relative transition-all duration-300">
-      <div id="action-prompt">
-        <h3 class="text-2xl sm:text-3xl font-serif-romance font-bold text-slate-800 mb-2">
-          Can You Forgive Me? 🥺
-        </h3>
-        <p class="text-sm text-slate-500 mb-6">
-          I promise to make things right and treat you like the queen you are.
-        </p>
+    <!-- ==============================================
+         TAB 2: TEDDY & KITTY CORNER (Interactive Pets)
+         ============================================== -->
+    <section id="view-corner" class="tab-view hidden">
+      <div class="space-y-4">
+        
+        <!-- Interactive Kitty Playpen -->
+        <div class="candy-card rounded-3xl p-5 sm:p-6 text-center relative overflow-hidden">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs uppercase tracking-wider font-bold text-rose-500">Interactive Companion</span>
+            <span id="kitty-status" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">Waiting for headpats 🐾</span>
+          </div>
 
-        <!-- Buttons Container -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[90px]" id="buttons-container">
-          <!-- YES BUTTON -->
-          <button
-            id="yes-button"
-            onclick="handleForgiveness()"
-            class="w-full sm:w-auto px-8 py-3.5 bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-semibold rounded-2xl shadow-lg shadow-rose-400/40 transition-all duration-200 flex items-center justify-center gap-2 text-base z-10"
+          <p class="text-xs sm:text-sm text-slate-500 mb-3">Tap anywhere on Mochi the Kitty to pet her and make her purr!</p>
+
+          <!-- Clickable Interactive Kitty -->
+          <div id="kitty-pet-area" onclick="petKitty(event)" class="relative inline-block cursor-pointer select-none py-2 breathing-character">
+            <svg class="w-36 h-36 mx-auto filter drop-shadow-md transition-transform duration-150 active:scale-95" viewBox="0 0 120 120" fill="none">
+              <!-- Tail -->
+              <path class="wag-tail" d="M30 85 C15 80, 10 60, 20 50 C26 44, 32 55, 27 65 C24 72, 28 78, 35 80" stroke="#f97316" stroke-width="7" stroke-linecap="round"/>
+              <!-- Body -->
+              <ellipse cx="60" cy="85" rx="35" ry="25" fill="#fed7aa" />
+              <ellipse cx="60" cy="87" rx="22" ry="16" fill="#fff7ed" />
+              <!-- Paws -->
+              <ellipse cx="45" cy="104" rx="8" ry="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"/>
+              <ellipse cx="75" cy="104" rx="8" ry="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"/>
+              <!-- Head -->
+              <circle cx="60" cy="50" r="28" fill="#fed7aa" />
+              <!-- Ears -->
+              <polygon points="38,32 46,12 55,27" fill="#fed7aa" />
+              <polygon points="41,30 47,16 53,26" fill="#fda4af" />
+              <polygon points="82,32 74,12 65,27" fill="#fed7aa" />
+              <polygon points="79,30 73,16 67,26" fill="#fda4af" />
+              <!-- Face markings -->
+              <path d="M57 26 L60 29 L63 26" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
+              <path d="M55 31 L60 35 L65 31" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
+              <!-- Cheeks -->
+              <circle cx="43" cy="57" r="5" fill="#f43f5e" opacity="0.35" />
+              <circle cx="77" cy="57" r="5" fill="#f43f5e" opacity="0.35" />
+              <!-- Happy Sleeping / Purring Eyes -->
+              <path id="kitty-eyes" d="M43 49 Q48 44 53 49 M67 49 Q72 44 77 49" stroke="#475569" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+              <!-- Nose & Mouth -->
+              <polygon points="60,54 57,51 63,51" fill="#f43f5e" />
+              <path d="M60 54 Q56 59 52 56 M60 54 Q64 59 68 56" stroke="#475569" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+
+          <div class="mt-2 flex items-center justify-center gap-3 text-xs font-bold text-slate-500">
+            <span class="bg-rose-50 px-3 py-1 rounded-full border border-rose-200">Headpats: <span id="kitty-pet-count" class="text-rose-600">0</span> 🐾</span>
+            <span id="kitty-dialogue" class="text-rose-600 font-hand text-lg">"Meow? Tap me!"</span>
+          </div>
+        </div>
+
+        <!-- Interactive Teddy Bear Hug Counter -->
+        <div class="candy-card rounded-3xl p-5 sm:p-6 text-center relative overflow-hidden">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs uppercase tracking-wider font-bold text-amber-600">Teddy Hug Machine</span>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-rose-100 text-rose-600">Free Infinite Cuddles 🧸</span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-500 mb-3">Give Barnaby the Bear a big squeeze whenever you need comfort!</p>
+
+          <div id="teddy-hug-area" onclick="hugTeddy(event)" class="relative inline-block cursor-pointer select-none py-1 breathing-character">
+            <!-- Teddy SVG -->
+            <svg class="w-32 h-32 mx-auto filter drop-shadow-md transition-transform duration-150 active:scale-90" viewBox="0 0 100 100" fill="none">
+              <!-- Ears -->
+              <circle cx="26" cy="26" r="13" fill="#b45309" />
+              <circle cx="26" cy="26" r="7" fill="#fde68a" />
+              <circle cx="74" cy="26" r="13" fill="#b45309" />
+              <circle cx="74" cy="26" r="7" fill="#fde68a" />
+              <!-- Body -->
+              <ellipse cx="50" cy="74" rx="27" ry="22" fill="#d97706" />
+              <ellipse cx="50" cy="74" rx="16" ry="14" fill="#fef3c7" />
+              <!-- Paws Holding Heart -->
+              <circle cx="30" cy="72" r="8" fill="#b45309" />
+              <circle cx="70" cy="72" r="8" fill="#b45309" />
+              <!-- Red Little Heart in hands -->
+              <path d="M50 78 C50 78 40 70 40 64 C40 59 44 57 47 60 C50 63 50 63 50 63 C50 63 50 63 53 60 C56 57 60 59 60 64 C60 70 50 78 50 78 Z" fill="#e11d48"/>
+              <!-- Head -->
+              <circle cx="50" cy="45" r="25" fill="#d97706" />
+              <!-- Snout -->
+              <ellipse cx="50" cy="49" rx="11" ry="8" fill="#fef3c7" />
+              <ellipse cx="50" cy="46" rx="4" ry="2.5" fill="#451a03" />
+              <path d="M50 48.5 Q47 52 45 50 M50 48.5 Q53 52 55 50" stroke="#451a03" stroke-width="1.8" stroke-linecap="round"/>
+              <!-- Eyes -->
+              <circle cx="41" cy="41" r="3.2" fill="#451a03" />
+              <circle cx="59" cy="41" r="3.2" fill="#451a03" />
+              <circle cx="42" cy="40" r="1" fill="#ffffff" />
+              <circle cx="60" cy="40" r="1" fill="#ffffff" />
+              <!-- Cheeks -->
+              <circle cx="34" cy="48" r="4.5" fill="#f43f5e" opacity="0.4" />
+              <circle cx="66" cy="48" r="4.5" fill="#f43f5e" opacity="0.4" />
+            </svg>
+          </div>
+
+          <div class="mt-3">
+            <button onclick="hugTeddy(event)" class="px-5 py-2 rounded-2xl bg-gradient-to-r from-amber-400 to-rose-400 text-white font-bold text-xs sm:text-sm shadow-md hover:brightness-105 active:scale-95 transition">
+              Squeeze For A Hug 🤗
+            </button>
+            <div class="mt-2 text-xs text-slate-500 font-semibold">
+              Hugs delivered so far: <span id="hug-counter" class="text-rose-600 font-bold text-sm">0</span>
+            </div>
+            <p id="teddy-whisper" class="text-xs text-amber-800 font-hand text-lg mt-1 h-5">"Squeeze me for instant comfort!"</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==============================================
+         TAB 3: LOVE COUPONS (Interactive Stamping)
+         ============================================== -->
+    <section id="view-coupons" class="tab-view hidden">
+      <div class="candy-card rounded-3xl p-5 sm:p-7">
+        <div class="text-center mb-4">
+          <span class="text-xs uppercase font-bold tracking-wider text-rose-400">Guaranteed Peace Offerings</span>
+          <h2 class="text-xl sm:text-2xl font-bold font-cute text-slate-800">Your Official Love Vouchers 🎟️</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Tap on any coupon to mark it as redeemed with your personal stamp!</p>
+        </div>
+
+        <div class="space-y-3">
+          
+          <!-- Coupon 1: Day Movie Date -->
+          <div onclick="redeemCoupon(this)" class="coupon-item relative border-2 border-dashed border-rose-300 bg-rose-50/70 hover:bg-rose-50 rounded-2xl p-4 transition-all duration-200 cursor-pointer overflow-hidden group">
+            <div class="flex items-center gap-3.5">
+              <div class="text-3xl bg-white p-2.5 rounded-xl shadow-sm group-hover:scale-105 transition-transform">
+                ☀️🍿
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-extrabold text-rose-500 tracking-wider">Pass #01</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Never Expires</span>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-slate-800">Day Movie Date</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Sunny daytime matinee show of your choice + giant buttery popcorn + your fav slushie on me!</p>
+              </div>
+            </div>
+            <!-- Red Stamp (Hidden by default) -->
+            <div class="stamp-badge hidden absolute right-3 top-3 border-2 border-rose-500 text-rose-500 font-bold px-2 py-0.5 rounded-lg text-xs uppercase tracking-widest bg-white/90 shadow">
+              CLAIMED ❤️
+            </div>
+          </div>
+
+          <!-- Coupon 2: Midnight Treats -->
+          <div onclick="redeemCoupon(this)" class="coupon-item relative border-2 border-dashed border-amber-300 bg-amber-50/70 hover:bg-amber-50 rounded-2xl p-4 transition-all duration-200 cursor-pointer overflow-hidden group">
+            <div class="flex items-center gap-3.5">
+              <div class="text-3xl bg-white p-2.5 rounded-xl shadow-sm group-hover:scale-105 transition-transform">
+                🍦🍫
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-extrabold text-amber-600 tracking-wider">Pass #02</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Valid 24/7</span>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-slate-800">Sweet Cravings Run</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Late night or anytime ice cream, bobas, or pastries fetched right to you without complaint.</p>
+              </div>
+            </div>
+            <div class="stamp-badge hidden absolute right-3 top-3 border-2 border-rose-500 text-rose-500 font-bold px-2 py-0.5 rounded-lg text-xs uppercase tracking-widest bg-white/90 shadow">
+              CLAIMED ❤️
+            </div>
+          </div>
+
+          <!-- Coupon 3: Warmest Hugs on Demand -->
+          <div onclick="redeemCoupon(this)" class="coupon-item relative border-2 border-dashed border-pink-300 bg-pink-50/70 hover:bg-pink-50 rounded-2xl p-4 transition-all duration-200 cursor-pointer overflow-hidden group">
+            <div class="flex items-center gap-3.5">
+              <div class="text-3xl bg-white p-2.5 rounded-xl shadow-sm group-hover:scale-105 transition-transform">
+                🧸🤗
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-extrabold text-pink-500 tracking-wider">Pass #03</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Unlimited Use</span>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-slate-800">Warmest Hugs On Demand</h3>
+                <p class="text-xs text-slate-500 mt-0.5">A long, tight, comforting hug for as long as you want until you feel completely safe.</p>
+              </div>
+            </div>
+            <div class="stamp-badge hidden absolute right-3 top-3 border-2 border-rose-500 text-rose-500 font-bold px-2 py-0.5 rounded-lg text-xs uppercase tracking-widest bg-white/90 shadow">
+              CLAIMED ❤️
+            </div>
+          </div>
+
+          <!-- Coupon 4: 100% Attentive Listening -->
+          <div onclick="redeemCoupon(this)" class="coupon-item relative border-2 border-dashed border-purple-300 bg-purple-50/70 hover:bg-purple-50 rounded-2xl p-4 transition-all duration-200 cursor-pointer overflow-hidden group">
+            <div class="flex items-center gap-3.5">
+              <div class="text-3xl bg-white p-2.5 rounded-xl shadow-sm group-hover:scale-105 transition-transform">
+                🎧👂
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-extrabold text-purple-500 tracking-wider">Pass #04</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Zero Arguments</span>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-slate-800">Zero-Distraction Venting Session</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Phone turned face down, no unsolicited advice, just gentle ears and hand holding.</p>
+              </div>
+            </div>
+            <div class="stamp-badge hidden absolute right-3 top-3 border-2 border-rose-500 text-rose-500 font-bold px-2 py-0.5 rounded-lg text-xs uppercase tracking-widest bg-white/90 shadow">
+              CLAIMED ❤️
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         TAB 4: REASONS WHY I LOVE YOU
+         ============================================== -->
+    <section id="view-reasons" class="tab-view hidden">
+      <div class="candy-card rounded-3xl p-5 sm:p-7">
+        <div class="text-center mb-5">
+          <span class="text-xs uppercase font-bold tracking-wider text-rose-400">Little Love Notes</span>
+          <h2 class="text-xl sm:text-2xl font-bold font-cute text-slate-800">Why You're My Favorite Person 🌸</h2>
+          <p class="text-xs text-slate-500">Tap each card to reveal what my heart feels!</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          
+          <!-- Flip Card 1 -->
+          <div class="flip-box h-36 cursor-pointer select-none" onclick="toggleCard(this)">
+            <div class="flip-box-inner relative w-full h-full text-center">
+              <div class="flip-front rounded-2xl p-3 bg-white/90 border-2 border-rose-200 flex flex-col items-center justify-center absolute inset-0 shadow-sm">
+                <span class="text-3xl mb-1">🌷</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-700">Your Big Heart</span>
+                <span class="text-[10px] text-rose-400 mt-1 font-semibold">Tap to flip 💫</span>
+              </div>
+              <div class="flip-back rounded-2xl p-3 bg-gradient-to-br from-rose-400 to-pink-500 text-white flex items-center justify-center absolute inset-0 text-xs font-semibold leading-relaxed shadow-md">
+                "The way you care about people and animals is the purest thing I've ever witnessed."
+              </div>
+            </div>
+          </div>
+
+          <!-- Flip Card 2 -->
+          <div class="flip-box h-36 cursor-pointer select-none" onclick="toggleCard(this)">
+            <div class="flip-box-inner relative w-full h-full text-center">
+              <div class="flip-front rounded-2xl p-3 bg-white/90 border-2 border-amber-200 flex flex-col items-center justify-center absolute inset-0 shadow-sm">
+                <span class="text-3xl mb-1">✨</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-700">Your Laugh</span>
+                <span class="text-[10px] text-amber-500 mt-1 font-semibold">Tap to flip 💫</span>
+              </div>
+              <div class="flip-back rounded-2xl p-3 bg-gradient-to-br from-amber-400 to-rose-400 text-white flex items-center justify-center absolute inset-0 text-xs font-semibold leading-relaxed shadow-md">
+                "Your genuine belly laugh is my single favorite frequency in this whole universe."
+              </div>
+            </div>
+          </div>
+
+          <!-- Flip Card 3 -->
+          <div class="flip-box h-36 cursor-pointer select-none" onclick="toggleCard(this)">
+            <div class="flip-box-inner relative w-full h-full text-center">
+              <div class="flip-front rounded-2xl p-3 bg-white/90 border-2 border-pink-200 flex flex-col items-center justify-center absolute inset-0 shadow-sm">
+                <span class="text-3xl mb-1">🐱</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-700">Your Cuteness</span>
+                <span class="text-[10px] text-pink-500 mt-1 font-semibold">Tap to flip 💫</span>
+              </div>
+              <div class="flip-back rounded-2xl p-3 bg-gradient-to-br from-pink-400 to-rose-500 text-white flex items-center justify-center absolute inset-0 text-xs font-semibold leading-relaxed shadow-md">
+                "Even when you pout or roll your eyes at me, you are somehow impossibly adorable."
+              </div>
+            </div>
+          </div>
+
+          <!-- Flip Card 4 -->
+          <div class="flip-box h-36 cursor-pointer select-none" onclick="toggleCard(this)">
+            <div class="flip-box-inner relative w-full h-full text-center">
+              <div class="flip-front rounded-2xl p-3 bg-white/90 border-2 border-teal-200 flex flex-col items-center justify-center absolute inset-0 shadow-sm">
+                <span class="text-3xl mb-1">🏡</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-700">You Are Home</span>
+                <span class="text-[10px] text-teal-500 mt-1 font-semibold">Tap to flip 💫</span>
+              </div>
+              <div class="flip-back rounded-2xl p-3 bg-gradient-to-br from-teal-400 to-emerald-400 text-white flex items-center justify-center absolute inset-0 text-xs font-semibold leading-relaxed shadow-md">
+                "No matter how chaotic the world gets, being next to you always feels like coming home."
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         TAB 5: FORGIVE ME? (Interactive Game & Certificate)
+         ============================================== -->
+    <section id="view-forgive" class="tab-view hidden">
+      <div id="forgive-card" class="candy-card rounded-3xl p-6 sm:p-8 text-center relative border-2 border-rose-300">
+        
+        <!-- Prompt Box -->
+        <div id="forgive-interactive-stage">
+          <div class="w-16 h-16 mx-auto mb-2 breathing-character">
+            <!-- Sad Pleading Kitty Face SVG -->
+            <svg class="w-full h-full filter drop-shadow" viewBox="0 0 100 100" fill="none">
+              <polygon points="18,30 32,10 40,34" fill="#fed7aa" />
+              <polygon points="22,29 32,16 38,32" fill="#fda4af" />
+              <polygon points="82,30 68,10 60,34" fill="#fed7aa" />
+              <polygon points="78,29 68,16 62,32" fill="#fda4af" />
+              <circle cx="50" cy="56" r="32" fill="#fed7aa" />
+              <!-- Watery eyes -->
+              <ellipse cx="38" cy="53" rx="5" ry="7" fill="#1e293b" />
+              <ellipse cx="62" cy="53" rx="5" ry="7" fill="#1e293b" />
+              <circle cx="36" cy="50" r="2.5" fill="#ffffff" />
+              <circle cx="40" cy="54" r="1.2" fill="#ffffff" />
+              <circle cx="60" cy="50" r="2.5" fill="#ffffff" />
+              <circle cx="64" cy="54" r="1.2" fill="#ffffff" />
+              <!-- Pout mouth -->
+              <path d="M46 68 Q50 63 54 68" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <!-- Cheeks -->
+              <circle cx="31" cy="62" r="5" fill="#f43f5e" opacity="0.4" />
+              <circle cx="69" cy="62" r="5" fill="#f43f5e" opacity="0.4" />
+            </svg>
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-bold font-cute text-slate-800 mb-1">
+            Will You Forgive Me, Babe? 🥺
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mb-6">
+            Even Barnaby the bear and Mochi the kitty are begging on my behalf!
+          </p>
+
+          <!-- Buttons Container -->
+          <div class="relative flex flex-col sm:flex-row items-center justify-center gap-4 min-h-[100px] mb-2" id="arena">
+            <!-- YES BUTTON -->
+            <button
+              id="yes-love-btn"
+              onclick="acceptForgiveness()"
+              class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold rounded-2xl shadow-lg shadow-rose-300/60 active:scale-95 transition-all duration-200 z-10 flex items-center justify-center gap-2 text-base"
+            >
+              <span>Yes, I Forgive You! 🥰</span>
+            </button>
+
+            <!-- NO DODGE BUTTON -->
+            <button
+              id="no-dodge-btn"
+              onmouseover="dodgeNo()"
+              onclick="dodgeNo()"
+              class="w-full sm:w-auto px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl border border-slate-200 transition-all duration-150 active:scale-90 text-sm whitespace-nowrap"
+            >
+              <span>No 😾</span>
+            </button>
+          </div>
+
+          <!-- Tease response line -->
+          <p id="dodge-plea" class="text-xs text-rose-500 font-hand text-lg h-6"></p>
+        </div>
+
+        <!-- ==============================================
+             CELEBRATION & LOVE CERTIFICATE (Hidden Initially)
+             ============================================== -->
+        <div id="forgive-success-stage" class="hidden flex-col items-center py-2 animate-fade-in">
+          
+          <div class="text-4xl animate-bounce mb-1">🎉 🐱💖🧸 🎊</div>
+          
+          <h2 class="text-2xl sm:text-3xl font-bold font-cute text-rose-600 mb-1">
+            YAY! I Love You So Much!
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 mb-4">
+            Thank you for having the biggest, kindest heart in the universe.
+          </p>
+
+          <!-- Official Cute Certificate Card -->
+          <div class="w-full p-4 sm:p-5 rounded-2xl border-4 border-double border-rose-300 bg-white/95 shadow-inner text-left relative overflow-hidden mb-4">
+            <div class="text-center pb-2 border-b border-rose-200 mb-3">
+              <span class="text-[10px] uppercase font-bold tracking-widest text-rose-400">Official Certificate</span>
+              <h3 class="text-lg font-bold font-cute text-rose-900">Certificate of True Forgiveness 📜✨</h3>
+            </div>
+            
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              This document solemnly certifies that the most wonderful girlfriend has officially granted pardon to her very lucky boyfriend. 
+            </p>
+            <ul class="text-[11px] text-rose-800 font-medium space-y-1 mb-4 bg-rose-50 p-2.5 rounded-xl border border-rose-100">
+              <li>✓ Guaranteed Day Movie Date with full treats</li>
+              <li>✓ Unlimited supply of warm hugs & cuddles</li>
+              <li>✓ 100% committed to being the best partner for you</li>
+            </ul>
+
+            <div class="flex items-center justify-between pt-2 border-t border-rose-100 text-[10px] text-slate-400">
+              <span>Date: <span id="current-date" class="font-bold text-slate-600"></span></span>
+              <span class="font-hand text-lg text-rose-600 font-bold">Seal of Endless Love 💖</span>
+            </div>
+          </div>
+
+          <!-- Extra Confetti Blast Button -->
+          <button 
+            onclick="triggerLoveRain()"
+            class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-1.5"
           >
-            <span>Yes, I forgive you ❤️</span>
-          </button>
-
-          <!-- PLAYFUL NO BUTTON -->
-          <button
-            id="no-button"
-            onmouseover="dodgeButton()"
-            onclick="dodgeButton()"
-            class="w-full sm:w-auto px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium rounded-2xl border border-slate-200 transition-all duration-200 text-base"
-          >
-            <span>No 😤</span>
+            <span>Blast More Confetti!</span>
+            <span>🌸✨</span>
           </button>
         </div>
-        <p id="tease-text" class="text-xs text-rose-500 italic mt-3 h-4"></p>
-      </div>
 
-      <!-- SUCCESS / FORGIVEN STATE (Initially hidden) -->
-      <div id="success-screen" class="hidden flex-col items-center py-4">
-        <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center text-3xl mb-4 animate-bounce">
-          💖
-        </div>
-        <h3 class="text-2xl sm:text-3xl font-serif-romance font-bold text-rose-900 mb-2">
-          Thank You, My Love! 🥰
-        </h3>
-        <p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto mb-5">
-          Thank you for your forgiving heart! You just made my entire world brighter. I promise to hold you tight, learn from this, and give you all the love and happiness you deserve!
-        </p>
-        <button 
-          onclick="celebrateMore()"
-          class="px-6 py-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-700 font-medium rounded-xl text-sm transition flex items-center gap-1.5"
-        >
-          <span>Send another burst of love</span>
-          <span>✨</span>
-        </button>
       </div>
     </section>
 
   </main>
 
-  <footer class="relative z-10 text-center py-6 text-xs text-rose-400">
-    Made with remorse, love, and a full heart.
+  <!-- Cute Mobile-Friendly Footer -->
+  <footer class="w-full py-4 text-center text-xs text-rose-400/80 font-medium z-10">
+    <span>Crafted with infinite love, repentance, and soft cuddles 🧸🐾</span>
   </footer>
 
   <script>
-    // Generate romantic ambient floating hearts & petals
-    function createFloatingHearts() {
-      const container = document.getElementById('heart-bg-container');
-      const icons = ['❤️', '💖', '🌸', '✨', '💕', '🌷', '☀️'];
-      const count = 16;
+    // -------------------------------------------------------------
+    // 1. Tab Switching Functionality
+    // -------------------------------------------------------------
+    function switchTab(tabName) {
+      // Hide all tabs
+      const views = document.querySelectorAll('.tab-view');
+      views.forEach(v => v.classList.add('hidden'));
 
-      for (let i = 0; i < count; i++) {
-        const span = document.createElement('span');
-        span.className = 'floating-bubble';
-        span.innerText = icons[Math.floor(Math.random() * icons.length)];
-        
-        span.style.left = Math.random() * 100 + 'vw';
-        span.style.fontSize = (Math.random() * 14 + 14) + 'px';
-        span.style.animationDuration = (Math.random() * 8 + 8) + 's';
-        span.style.animationDelay = (Math.random() * 6) + 's';
-        
-        container.appendChild(span);
+      // Remove active pill style
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(b => {
+        b.classList.remove('bg-rose-400', 'text-white', 'shadow-sm');
+        b.classList.add('hover:text-rose-500');
+      });
+
+      // Show targeted view
+      const targetView = document.getElementById('view-' + tabName);
+      if (targetView) {
+        targetView.classList.remove('hidden');
+      }
+
+      // Activate corresponding tab button
+      const targetBtn = document.getElementById('tab-btn-' + tabName);
+      if (targetBtn) {
+        targetBtn.classList.add('bg-rose-400', 'text-white', 'shadow-sm');
+        targetBtn.classList.remove('hover:text-rose-500');
+      }
+
+      // Floating heart burst on tab click
+      spawnFloatingHeart(window.innerWidth / 2, 90, '✨');
+    }
+
+    // -------------------------------------------------------------
+    // 2. Ambient Floating Items Creator
+    // -------------------------------------------------------------
+    function initAmbientStickers() {
+      const container = document.getElementById('ambient-stickers');
+      const icons = ['🌸', '✨', '🐾', '🧸', '🐱', '💖', '🌷', '☀️'];
+      const total = 14;
+
+      for (let i = 0; i < total; i++) {
+        const item = document.createElement('div');
+        item.className = 'floating-sticker';
+        item.innerText = icons[Math.floor(Math.random() * icons.length)];
+        item.style.left = Math.random() * 95 + 'vw';
+        item.style.top = Math.random() * 90 + 'vh';
+        item.style.fontSize = (Math.random() * 14 + 16) + 'px';
+        item.style.animationDelay = (Math.random() * 5) + 's';
+        item.style.animationDuration = (Math.random() * 6 + 7) + 's';
+        container.appendChild(item);
       }
     }
 
-    // Toggle Flip Cards
-    function toggleFlip(cardElement) {
-      cardElement.classList.toggle('flipped');
+    // -------------------------------------------------------------
+    // 3. Cute Mood Selector (Letter page)
+    // -------------------------------------------------------------
+    function setMood(type) {
+      const response = document.getElementById('mood-response');
+      if (type === 'pout') {
+        response.innerText = "I know you're upset... I'll wait as long as it takes to make you smile again 🥺";
+      } else if (type === 'soft') {
+        response.innerText = "Seeing your heart soften gives me hope. I love you so much! 💖";
+      } else {
+        response.innerText = "Yay! You have the sweetest soul ever. Check out the other tabs! 🥰";
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 30, spread: 45, origin: { y: 0.7 } });
+        }
+      }
     }
 
-    // Playful "No" dodge logic
-    let dodgeCount = 0;
-    const teaseMessages = [
-      "Wait, give me one more chance? 🥺",
-      "Are you really sure? Look at that smile! ✨",
-      "I promised a Day Movie Date and snacks! 🍿",
-      "Please don't press that! 🙈",
-      "The 'Yes' button is so much prettier ❤️"
+    // -------------------------------------------------------------
+    // 4. Petting Mochi The Kitty
+    // -------------------------------------------------------------
+    let petCount = 0;
+    const kittyReplies = [
+      "Purrr... purrrr 🐾",
+      "Mrow! More chin scratches please! 🐱",
+      "*Happy happy purring noises* ✨",
+      "She's smiling! Keep petting! 💕",
+      "Purrrrrrrr~ You're her favorite! 🌸"
     ];
 
-    function dodgeButton() {
-      const noBtn = document.getElementById('no-button');
-      const teaseText = document.getElementById('tease-text');
-      const yesBtn = document.getElementById('yes-button');
+    function petKitty(e) {
+      petCount++;
+      document.getElementById('kitty-pet-count').innerText = petCount;
+      const dialogue = document.getElementById('kitty-dialogue');
+      dialogue.innerText = kittyReplies[petCount % kittyReplies.length];
+
+      document.getElementById('kitty-status').innerText = "Status: Purring loudly! 😻";
+
+      // Spawn floating hearts from tap
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clientX = e.clientX || (rect.left + rect.width / 2);
+      const clientY = e.clientY || (rect.top + rect.height / 2);
+      spawnFloatingHeart(clientX, clientY, '🐾');
+      spawnFloatingHeart(clientX + 20, clientY - 10, '💖');
+    }
+
+    // -------------------------------------------------------------
+    // 5. Hugging Barnaby The Teddy Bear
+    // -------------------------------------------------------------
+    let hugCount = 0;
+    const teddyMessages = [
+      "Warm bear squeeze delivered! 🤗",
+      "Aww, that's a cozy hug! 🧸",
+      "Tight squeeze! He loves you so much! ❤️",
+      "Charging your comfort battery to 100%! 🔋",
+      "Big soft teddy hugs for the princess! ✨"
+    ];
+
+    function hugTeddy(e) {
+      hugCount++;
+      document.getElementById('hug-counter').innerText = hugCount;
+      document.getElementById('teddy-whisper').innerText = teddyMessages[hugCount % teddyMessages.length];
+
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clientX = e.clientX || (rect.left + rect.width / 2);
+      const clientY = e.clientY || (rect.top + rect.height / 2);
+      spawnFloatingHeart(clientX, clientY, '🧸');
+      spawnFloatingHeart(clientX - 15, clientY - 15, '❤️');
+    }
+
+    // -------------------------------------------------------------
+    // 6. Love Coupon Stamp Action
+    // -------------------------------------------------------------
+    function redeemCoupon(couponEl) {
+      const stamp = couponEl.querySelector('.stamp-badge');
+      if (stamp) {
+        if (stamp.classList.contains('hidden')) {
+          stamp.classList.remove('hidden');
+          couponEl.classList.add('ring-2', 'ring-rose-400');
+          spawnFloatingHeart(window.innerWidth / 2, window.innerHeight / 2, '🎟️');
+        } else {
+          stamp.classList.add('hidden');
+          couponEl.classList.remove('ring-2', 'ring-rose-400');
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 7. Reasons Flip Card Toggle
+    // -------------------------------------------------------------
+    function toggleCard(cardEl) {
+      cardEl.classList.toggle('is-flipped');
+    }
+
+    // -------------------------------------------------------------
+    // 8. Playful Forgiveness Game Logic
+    // -------------------------------------------------------------
+    let dodgeCount = 0;
+    const pleas = [
+      "Pretty please with ice cream on top? 🥺",
+      "Look at Mochi's teary eyes! 😿",
+      "I promised a Day Movie Date and popcorn! 🍿",
+      "Even Barnaby the bear is begging! 🧸",
+      "The green/pink 'Yes' button looks so much cuter! 💖",
+      "I promise to give you back rubs whenever you want! 💆‍♀️"
+    ];
+
+    function dodgeNo() {
       dodgeCount++;
+      const noBtn = document.getElementById('no-dodge-btn');
+      const yesBtn = document.getElementById('yes-love-btn');
+      const pleaText = document.getElementById('dodge-plea');
 
-      // Gradually enlarge the Yes button
-      const currentScale = 1 + (dodgeCount * 0.08);
-      yesBtn.style.transform = `scale(${Math.min(currentScale, 1.35)})`;
+      // Make the Yes button progressively larger and more noticeable
+      const newScale = 1 + Math.min(dodgeCount * 0.1, 0.45);
+      yesBtn.style.transform = `scale(${newScale})`;
 
-      // Update sweet teasing message
-      const randomMsg = teaseMessages[(dodgeCount - 1) % teaseMessages.length];
-      teaseText.innerText = randomMsg;
+      // Change plea dialogue
+      pleaText.innerText = pleas[(dodgeCount - 1) % pleas.length];
 
-      // Move the No button within a comfortable safe boundary
-      const maxX = 120;
-      const maxY = 50;
-      const randomX = (Math.random() * (maxX * 2)) - maxX;
-      const randomY = (Math.random() * (maxY * 2)) - maxY;
+      // Dodge the No button slightly around
+      const maxDistance = 90;
+      const moveX = (Math.random() * (maxDistance * 2)) - maxDistance;
+      const moveY = (Math.random() * 60) - 30;
 
-      noBtn.style.position = 'relative';
-      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+      noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
     }
 
-    // Handle "Yes" forgiveness click with celebratory confetti
-    function handleForgiveness() {
-      document.getElementById('action-prompt').classList.add('hidden');
-      const successScreen = document.getElementById('success-screen');
-      successScreen.classList.remove('hidden');
-      successScreen.classList.add('flex');
+    function acceptForgiveness() {
+      document.getElementById('forgive-interactive-stage').classList.add('hidden');
+      const successStage = document.getElementById('forgive-success-stage');
+      successStage.classList.remove('hidden');
+      successStage.classList.add('flex');
 
-      celebrateMore();
+      // Set today's date on the certificate
+      const dateEl = document.getElementById('current-date');
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      dateEl.innerText = new Date().toLocaleDateString(undefined, options);
+
+      triggerLoveRain();
     }
 
-    function celebrateMore() {
+    function triggerLoveRain() {
       if (typeof confetti === 'function') {
+        // Center burst
         confetti({
-          particleCount: 85,
-          spread: 70,
+          particleCount: 90,
+          spread: 80,
           origin: { y: 0.6 },
-          colors: ['#f43f5e', '#fb7185', '#fda4af', '#fecdd3', '#ffe4e6']
+          colors: ['#ff85a1', '#f43f5e', '#fbcfe8', '#fde047', '#fed7aa']
         });
 
+        // Left & right cannons
         setTimeout(() => {
           confetti({
-            particleCount: 50,
+            particleCount: 45,
             angle: 60,
-            spread: 55,
-            origin: { x: 0 },
-            colors: ['#e11d48', '#ff758f', '#ffb3c1']
+            spread: 60,
+            origin: { x: 0.05, y: 0.65 },
+            colors: ['#e11d48', '#fb7185', '#ffe4e6']
           });
           confetti({
-            particleCount: 50,
+            particleCount: 45,
             angle: 120,
-            spread: 55,
-            origin: { x: 1 },
-            colors: ['#e11d48', '#ff758f', '#ffb3c1']
+            spread: 60,
+            origin: { x: 0.95, y: 0.65 },
+            colors: ['#e11d48', '#fb7185', '#ffe4e6']
           });
-        }, 250);
+        }, 200);
       }
+    }
+
+    // Helper: spawn on-click hearts anywhere
+    function spawnFloatingHeart(x, y, emoji = '💖') {
+      const el = document.createElement('div');
+      el.className = 'spawned-heart';
+      el.innerText = emoji;
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1200);
     }
 
     window.onload = function () {
-      createFloatingHearts();
+      initAmbientStickers();
     };
   </script>
 </body>
